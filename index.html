@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html manifest="manifest.appcache">
+<head>
+	<style>	
+	.box {
+		border-radius: 25px;
+		background: #8b95f1;
+		padding: 20px;
+		font-size:1.0em;
+		box-shadow: 10px 20px 15px silver;
+		margin: 0.2em;
+		display: inline-block;
+	}
+
+	</style>
+	
+	<script>
+
+  	var solution = "";
+  	var last_shown_index = null;
+
+  	function cleanup(){
+		console.log("Cleanup running")
+		document.getElementById('choice-wrapper').innerHTML = '';
+	}
+
+	  function init() {
+		cleanup()
+		
+		for (let i = 0; i < 400; i++) {
+		  buildChoice("X")
+		}
+		
+		// localStorage.setItem("starcounter",Number(0))
+		readStarCounter();
+		
+		let parentSelector = document.querySelector('#choice-wrapper');
+	  // we want to make sure we get a random number between 1 and the number of child.
+	  let random = Math.floor(1 + Math.random() * parentSelector.childElementCount);
+	  console.log(random);
+	  child = document.querySelector('#choice-wrapper>span:nth-child(' + random + ')');
+	  console.log(child);
+	  if(child) {
+	    console.log(child);
+	    console.log(child.innerHTML);
+	    child.innerHTML = "<font color=#FC0000>" + child.innerHTML + "</font>";
+	  }
+	  
+	  random = Math.floor(1 + Math.random() * parentSelector.childElementCount);
+	  console.log(random);
+	  child = document.querySelector('#choice-wrapper>span:nth-child(' + random + ')');
+	  console.log(child);
+	  if(child) {
+	    console.log(child);
+	    console.log(child.innerHTML);
+	    child.innerHTML = "<font color=#00FC00>" + child.innerHTML + "</font>";
+	  }
+	  
+	  random = Math.floor(1 + Math.random() * parentSelector.childElementCount);
+	  console.log(random);
+	  child = document.querySelector('#choice-wrapper>span:nth-child(' + random + ')');
+	  console.log(child);
+	  if(child) {
+	    console.log(child);
+	    console.log(child.innerHTML);
+	    child.innerHTML = "Y";
+	  }
+	}
+
+
+	function readStarCounter(){
+		if (!localStorage.getItem("starcounter")){
+			localStorage.setItem("starcounter",Number(0))
+		}
+		var starcounter = document.getElementById('starcounter')
+		starcounter.innerText = localStorage.getItem("starcounter")
+	}
+
+	function addStars(number_of_stars){
+		localStorage.setItem("starcounter",Number(Number(localStorage.getItem("starcounter")) + 1))
+		readStarCounter()
+	}
+
+	function checkIfCorrect(){
+	
+	}
+
+
+  
+	function buildChoice(currentValue, index, arr){
+		var new_element = document.createElement('span')
+		new_element.id = currentValue
+		new_element.innerHTML = currentValue;
+		new_element.classList.add('box');
+		new_element.draggable = true
+		//new_element.setAttribute('ondragstart', 'drag(event)');
+		document.getElementById('choice-wrapper').appendChild(new_element)
+	}
+
+
+	</script>
+</head>
+
+<body onload="init()">
+	<div>
+		<span id="starcounter"></span>
+		<img src="star.png" height="40px" width="40px">
+	</div>
+	<p />
+
+	<div id="choice-wrapper" class="choicebox" style="width:100%;border:1px solid black">
+	</div>
+
+	
+</body>
+</html>
