@@ -6,7 +6,7 @@
 		border-radius: 25px;
 		background: #8b95f1;
 		padding: 20px;
-		font-size:1.0em;
+		font-size:2.0em;
 		box-shadow: 10px 20px 15px silver;
 		margin: 0.2em;
 		display: inline-block;
@@ -25,11 +25,9 @@
 	}
 
 	  function init() {
-		cleanup()
+		cleanup();
 		
-		for (let i = 0; i < 400; i++) {
-		  buildChoice("X")
-		}
+		fillChoiceWrapper();
 		
 		// localStorage.setItem("starcounter",Number(0))
 		readStarCounter();
@@ -37,36 +35,42 @@
 		let parentSelector = document.querySelector('#choice-wrapper');
 	  // we want to make sure we get a random number between 1 and the number of child.
 	  let random = Math.floor(1 + Math.random() * parentSelector.childElementCount);
-	  console.log(random);
 	  child = document.querySelector('#choice-wrapper>span:nth-child(' + random + ')');
-	  console.log(child);
 	  if(child) {
-	    console.log(child);
-	    console.log(child.innerHTML);
+	    // console.log(child);
+	    // console.log(child.innerHTML);
 	    child.innerHTML = "<font color=#FC0000>" + child.innerHTML + "</font>";
 	  }
 	  
 	  random = Math.floor(1 + Math.random() * parentSelector.childElementCount);
-	  console.log(random);
 	  child = document.querySelector('#choice-wrapper>span:nth-child(' + random + ')');
-	  console.log(child);
 	  if(child) {
-	    console.log(child);
-	    console.log(child.innerHTML);
+	    // console.log(child);
+	    // console.log(child.innerHTML);
 	    child.innerHTML = "<font color=#00FC00>" + child.innerHTML + "</font>";
 	  }
 	  
 	  random = Math.floor(1 + Math.random() * parentSelector.childElementCount);
-	  console.log(random);
 	  child = document.querySelector('#choice-wrapper>span:nth-child(' + random + ')');
-	  console.log(child);
 	  if(child) {
-	    console.log(child);
-	    console.log(child.innerHTML);
 	    child.innerHTML = "Y";
 	  }
 	}
 
+	function fillChoiceWrapper(){
+		let wrapper = document.querySelector('#choice-wrapper');
+		// console.log(wrapper)
+		// buildChoice("X");
+		// buildChoice("X");
+		// buildChoice("X");
+
+		console.log("Start loop scroll" + wrapper.scrollHeight + " offset" + wrapper.offsetHeight);
+		while (wrapper.scrollHeight < wrapper.offsetHeight) {
+    		buildChoice("X");
+			console.log("loop scroll" + wrapper.scrollHeight + " offset" + wrapper.offsetHeight);
+  		}
+  		wrapper.removeChild(wrapper.lastChild);
+	}
 
 	function readStarCounter(){
 		if (!localStorage.getItem("starcounter")){
@@ -108,7 +112,7 @@
 	</div>
 	<p />
 
-	<div id="choice-wrapper" class="choicebox" style="width:100%;border:1px solid black">
+	<div id="choice-wrapper" class="choicebox" style="width:100%;height: 100vh;border:1px solid black">
 	</div>
 
 	
